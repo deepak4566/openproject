@@ -29,6 +29,7 @@
 Rails.application.routes.draw do
   resources :projects, only: %i[] do
     resources :meetings, only: %i[index new create show]
+    resources :recurring_meetings, only: %i[index new create show]
   end
 
   resources :work_packages, only: %i[] do
@@ -46,6 +47,8 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  resources :recurring_meetings, only: %i[index new create show]
 
   resources :meetings do
     member do

@@ -26,7 +26,11 @@
           details.with_row do
             render_meeting_attribute_row(:calendar) do
               render(Primer::Beta::Text.new) do
-                format_date(@meeting.start_time)
+                if @meeting.template?
+                  "Time set in next occurrence"
+                else
+                  format_date(@meeting.start_time)
+                end
               end
             end
           end

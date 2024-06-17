@@ -30,7 +30,8 @@ module MeetingsHelper
   def top_level_sidebar_menu_items
     [
       menu_upcoming_meetings_item,
-      menu_past_meetings_item
+      menu_past_meetings_item,
+      menu_recurring_meetings_item
     ]
   end
 
@@ -61,6 +62,11 @@ module MeetingsHelper
     )
 
     menu_link_element path, t(:label_past_meetings)
+  end
+
+  def menu_recurring_meetings_item
+    path = polymorphic_path([@project, :recurring_meetings])
+    menu_link_element path, t(:label_recurring_meeting_plural)
   end
 
   def menu_upcoming_invitations_item
