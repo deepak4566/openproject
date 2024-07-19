@@ -33,7 +33,7 @@ class WorkPackages::ActivitiesTabController < ApplicationController
 
   before_action :find_work_package
   before_action :find_project
-  before_action :find_journal, only: %i[edit cancel_edit update]
+  before_action :find_journal, only: %i[edit cancel_edit update toggle_reaction]
   before_action :authorize
 
   def index
@@ -66,7 +66,8 @@ class WorkPackages::ActivitiesTabController < ApplicationController
   end
 
   def update_streams
-    generate_time_based_update_streams(params[:last_update_timestamp], params[:filter])
+    generate_time_based_journal_update_streams(params[:last_update_timestamp], params[:filter])
+    generate_time_based_reaction_update_streams(params[:last_update_timestamp])
 
     respond_with_turbo_streams
   end
@@ -118,7 +119,9 @@ class WorkPackages::ActivitiesTabController < ApplicationController
           )
         )
       end
-      generate_time_based_update_streams(params[:last_update_timestamp], params[:filter])
+
+      generate_time_based_journal_update_streams(params[:last_update_timestamp], params[:filter])
+      generate_time_based_reaction_update_streams(params[:last_update_timestamp])
     end
 
     respond_with_turbo_streams
@@ -164,6 +167,36 @@ class WorkPackages::ActivitiesTabController < ApplicationController
     respond_with_turbo_streams
   end
 
+  def toggle_reaction
+    call = if @journal.emoji_reactions.exists?(user: User.current, emoji: params[:emoji])
+             EmojiReactions::DeleteService.new(
+               user: User.current,
+               model: @journal.emoji_reactions.find_by(user: User.current, emoji: params[:emoji])
+             ).call
+           else
+             EmojiReactions::CreateService.new(
+               user: User.current
+             ).call(
+               user: User.current,
+               reactable: @journal,
+               emoji: params[:emoji]
+             )
+           end
+
+    if call.success?
+      update_via_turbo_stream(
+        component: WorkPackages::ActivitiesTab::Journals::ItemComponent::Show.new(
+          journal: @journal,
+          filter: params[:filter]&.to_sym || :all
+        )
+      )
+    else
+      # TODO: handle errors
+    end
+
+    respond_with_turbo_streams
+  end
+
   private
 
   def find_work_package
@@ -186,7 +219,7 @@ class WorkPackages::ActivitiesTabController < ApplicationController
     params.require(:journal).permit(:notes)
   end
 
-  def generate_time_based_update_streams(last_update_timestamp, filter)
+  def generate_time_based_journal_update_streams(last_update_timestamp, filter)
     filter = filter&.to_sym || :all
     # TODO: prototypical implementation
     journals = @work_package.journals
@@ -216,6 +249,19 @@ class WorkPackages::ActivitiesTabController < ApplicationController
 
     journals.where("created_at > ?", last_update_timestamp).find_each do |journal|
       append_or_prepend_latest_journal_via_turbo_stream(journal, latest_journal_visible_for_user, filter)
+    end
+  end
+
+  def generate_time_based_reaction_update_streams(last_update_timestamp)
+    # Current limitation: Only shows added reactions, not removed ones
+    EmojiReaction
+      .where(reactable_id: @work_package.journal_ids)
+      .where("updated_at > ?", last_update_timestamp).find_each do |reaction|
+      update_via_turbo_stream(
+        component: WorkPackages::ActivitiesTab::Journals::ItemComponent::Reactions.new(
+          journal: reaction.reactable
+        )
+      )
     end
   end
 

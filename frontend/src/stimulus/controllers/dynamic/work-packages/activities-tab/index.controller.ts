@@ -236,10 +236,7 @@ export default class IndexController extends Controller {
 
     this.addEventListenersToCkEditorInstance();
 
-    const ckEditorInstance = this.getCkEditorInstance();
-    if (ckEditorInstance) {
-      setTimeout(() => ckEditorInstance.editing.view.focus(), 10);
-    }
+    this.focusEditor();
   }
 
   focusEditor() {
