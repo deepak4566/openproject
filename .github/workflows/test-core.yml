@@ -24,10 +24,9 @@ jobs:
     name: Units + Features
     if: github.repository == 'opf/openproject'
     runs-on:
-      labels
-        - runs-on
-        - runner=32cpu-linux-x64
-        - run-id=${{ github.run_id }}
+      - runs-on
+      - runner=32cpu-linux-x64
+      - run-id=${{ github.run_id }}
     timeout-minutes: 40
     env:
       DOCKER_BUILDKIT: 1
