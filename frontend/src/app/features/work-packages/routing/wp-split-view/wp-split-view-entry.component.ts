@@ -1,6 +1,6 @@
-// -- copyright
+//-- copyright
 // OpenProject is an open source project management software.
-// Copyright (C) 2012-2024 the OpenProject GmbH
+// Copyright (C) the OpenProject GmbH
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License version 3.
@@ -43,7 +43,6 @@ import { populateInputsFromDataset } from 'core-app/shared/components/dataset-in
       [workPackageId]="workPackageId"
       [activeTab]="activeTab"
       [showTabs]="false"
-      [resizeStyle]="resizeStyle"
       [resizerClass]="resizerClass"
     ></op-wp-split-view>
   `,
@@ -53,7 +52,6 @@ export class WorkPackageSplitViewEntryComponent {
   @Input() workPackageId:string;
   @Input() activeTab:string;
   @Input() resizerClass:string;
-  @Input() resizeStyle:string;
 
   constructor(readonly elementRef:ElementRef) {
     populateInputsFromDataset(this);

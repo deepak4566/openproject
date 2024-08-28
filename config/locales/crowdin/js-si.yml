@@ -66,7 +66,7 @@ si:
     button_back_to_list_view: "ලැයිස්තු දැක්ම වෙත ආපසු"
     button_cancel: "අවලංගු කරන්න"
     button_close: "වසන්න"
-    button_change_project: "ව්යාපෘතිය වෙනස් කරන්න"
+    button_change_project: "Move to another project"
     button_check_all: "සියල්ල පරීක්ෂා කරන්න"
     button_configure-form: "පෝරමය සකසන්න"
     button_confirm: "තහවුරු කරන්න"
@@ -74,7 +74,7 @@ si:
     button_copy: "පිටපත් කරන්න"
     button_copy_to_clipboard: "පසුරු පුවරුවට පිටපත් කරන්න"
     button_copy_link_to_clipboard: "Copy link to clipboard"
-    button_copy_to_other_project: "Copy to other project"
+    button_copy_to_other_project: "Duplicate to other project"
     button_custom-fields: "අභිරුචි ක්ෂේත්ර"
     button_delete: "මකන්න"
     button_delete_watcher: "මුරකරු මකන්න"
@@ -336,18 +336,6 @@ si:
         years: "අවුරුදු"
         description: >
           ස්වයංසූම් ලබා ගත නොහැකි විට පෙන්විය යුතු ආරම්භක විශාලන මට්ටම තෝරන්න.
-      export:
-        title: "Gantt chart PDF options"
-        button_export: "අපනයන"
-        column_widths:
-          narrow: "Narrow"
-          medium: "Medium"
-          wide: "Wide"
-          very_wide: "Very wide"
-        options:
-          date_zoom: "Date zoom"
-          paper_size: "Paper size"
-          column_widths: "Column widths"
     general_text_no: "නැත"
     general_text_yes: "ඔව්"
     general_text_No: "නැත"
@@ -648,7 +636,7 @@ si:
           with_current_filter: "There are no notifications in this view at the moment"
         mark_all_read: "Mark all as read"
         mark_as_read: "Mark as read"
-        text_update_date: "%{date} by"
+        text_update_date_by: "%{date} by"
         total_count_warning: "Showing the %{newest_count} most recent notifications. %{more_count} more are not displayed."
         empty_state:
           no_notification: "Looks like you are all caught up."

@@ -263,6 +263,9 @@ zh-TW:
       open_as_gantt: "甘特圖檢視"
       no_results_title_text: 目前沒有專案
       no_results_content_text: 建立新專案
+      search:
+        label: Project name filter
+        placeholder: Search by project name
     lists:
       active: "啟用中的專案"
       my: "我的專案"
@@ -371,7 +374,7 @@ zh-TW:
         other: "%{all_shared_work_packages_link} 已與該組共享。"
       shared_with_permission_html:
         other: "只有 %{shared_work_packages_link} 共享了 %{shared_role_name} 權限。"
-      revoke_all_or_with_role: "您想撤銷對所有共享工作包的訪問權限，還是只撤銷對具有 %{shared_role_name} 權限的工作包的訪問權限？"
+      revoke_all_or_with_role: "您想撤銷對所有共用工作項目的存取權限，還是只撤銷 %{shared_role_name} 的相關權限？"
       will_not_affect_inherited_shares: "(這不會影響與其群組共用的工作包)。"
       cannot_remove_inherited: "無法刪除通過群組共享的工作包共享。"
       cannot_remove_inherited_with_role: "與角色 %{shared_role_name} 共享的工作包是通過群組共享的，不能刪除。"
@@ -495,7 +498,7 @@ zh-TW:
         所選顏色區分甘特圖或工作項目中的不同類型。因此建議使用濃烈的顏色。
   versions:
     overview:
-      work_packages_in_archived_projects: "該版本與歸檔項目共享，這些項目仍然有分配給此版本的工作包。雖然這些工作包被計算在內，但不會顯示在鏈接視圖中。"
+      work_packages_in_archived_projects: "該版本與歸檔項目共用，這些專案仍然有分配給此版本的工作項目。雖然這些工作項目被計算在內，但不會顯示在視圖中。"
       no_results_title_text: 目前沒有分配給此版本的工作項目。
   wiki:
     page_not_editable_index: 本頁不存在,重新導至wiki目錄頁。
@@ -764,14 +767,14 @@ zh-TW:
           true: "包含非工作日"
         notify: "通知" #used in custom actions
         parent: "上層目錄："
-        parent_issue: "上層目錄："
-        parent_work_package: "上層目錄："
+        parent_issue: "上層工作項目："
+        parent_work_package: "上層工作項目："
         priority: "優先等級"
         progress: "完成度(%)"
         readonly: "唯讀"
         remaining_hours: "剩餘工作"
         remaining_time: "剩餘工作"
-        shared_with_users: "共用對象"
+        shared_with_users: "參與成員"
         schedule_manually: "手動排程"
         spent_hours: "耗時"
         spent_time: "耗時"
@@ -1042,7 +1045,7 @@ zh-TW:
               not_available_for_milestones: "不適用於里程碑類型的工作項目。"
               cannot_be_null: "無法設置為 null，因為開始日期和結束日期已知。"
             parent:
-              cannot_be_milestone: "不可以成為一個里程碑"
+              cannot_be_milestone: "不能是里程碑"
               cannot_be_self_assigned: "不能指派給自己"
               cannot_be_in_another_project: "不能在另一個專案中"
               not_a_valid_parent: "不正確。"
@@ -1539,8 +1542,8 @@ zh-TW:
   error_can_not_archive_project: "這個專案無法封存：%{errors}"
   error_can_not_delete_entry: "無法刪除項目"
   error_can_not_delete_custom_field: "無法刪除客製欄位"
-  error_can_not_delete_in_use_archived_undisclosed: "歸檔專案中也有工作套件。您需要請管理員執行刪除，才能看到哪些專案會受到影響。"
-  error_can_not_delete_in_use_archived_work_packages: "已歸檔的專案中也有工作套件。您需要先重新啟動下列專案，才能變更各工作套件的屬性： %{archived_projects_urls}"
+  error_can_not_delete_in_use_archived_undisclosed: "歸檔專案中也有工作項目。您需要請管理員執行刪除，才能看到哪些專案會受到影響。"
+  error_can_not_delete_in_use_archived_work_packages: "已歸檔的專案中也有工作項目。您需要先重新啟動下列專案，才能變更各工作項目屬性： %{archived_projects_urls}"
   error_can_not_delete_type:
     explanation: '此類型包含工作套件，且無法刪除。您可以在<a target="_blank" href="%{url}">此檢視</a>中看到所有受影響的工作套件。'
   error_can_not_delete_standard_type: "標準類型無法刪除"
@@ -1607,9 +1610,71 @@ zh-TW:
       project: "專案: %{name}"
       subproject: "子專案: %{name}"
   export:
-    your_work_packages_export: "輸出工作列表"
-    succeeded: "輸出完成"
-    failed: "匯出失敗：%{message}"
+    dialog:
+      title: "Export"
+      submit: "Export"
+      format:
+        label: "File format"
+        options:
+          csv:
+            label: "CSV"
+          pdf:
+            label: "PDF"
+          xls:
+            label: "XLS"
+      columns:
+        input_label_report: "Add columns to attribute table"
+        input_caption_report: "By default all attributes added as columns in the work package list are selected. Long text fields are not available in the attribute table, but can be displayed below it."
+        input_caption_table: "By default all attributes added as columns in the work package list are selected. Long text fields are not available in table based exports."
+      pdf:
+        export_type:
+          label: "PDF export type"
+          options:
+            table:
+              label: "Table"
+              caption: "Export the work packages list in a table with the desired columns."
+            report:
+              label: "Report"
+              caption: "Export the work package on a detailed report of all work packages in the list."
+            gantt:
+              label: "Gantt chart"
+              caption: "Export the work packages list in a Gantt diagram view."
+        include_images:
+          label: "Include images"
+          caption: "Exclude images to reduce the size of the PDF export."
+        gantt_zoom_levels:
+          label: "Zoom levels"
+          caption: "Select what is the zoom level for dates displayed in the chart."
+          options:
+            days: "Days"
+            weeks: "Weeks"
+            months: "Months"
+            quarters: "Quarters"
+        column_width:
+          label: "Table column width"
+          options:
+            narrow: "Narrow"
+            medium: "Medium"
+            wide: "Wide"
+            very_wide: "Very wide"
+        paper_size:
+          label: "Paper size"
+          caption: "Depending on the chart size more than one page might be exported."
+        long_text_fields:
+          input_caption: "By default all long text fields are selected."
+          input_label: "Add long text fields"
+          input_placeholder: "Search for long text fields"
+          drag_area_label: "Manage long text fields"
+      xls:
+        include_relations:
+          label: "Include relations"
+          caption: "This option will create a duplicate of each work package for every relation this has with another work package."
+        include_descriptions:
+          label: "Include descriptions"
+          caption: "This option will add a description column in raw format."
+    your_work_packages_export: "Work packages are being exported"
+    succeeded: "Export completed"
+    failed: "An error has occurred while trying to export the work packages: %{message}"
     format:
       atom: "Atom"
       csv: "CSV"
@@ -1895,7 +1960,7 @@ zh-TW:
   label_collapsed_click_to_show: "已收合。按一下以顯示"
   label_configuration: 組態
   label_comment_add: "新增留言"
-  label_comment_added: "新增內容"
+  label_comment_added: "新增留言"
   label_comment_delete: "刪除留言"
   label_comment_plural: "留言"
   label_commits_per_author: "每個作者的Commit"
@@ -2110,7 +2175,7 @@ zh-TW:
   label_modules: "模組"
   label_months_from: "從幾個月"
   label_more: "更多"
-  label_more_than_ago: "多天前"
+  label_more_than_ago: "超過幾天"
   label_move_work_package: "移動工作項目"
   label_my_account: "我的帳號"
   label_my_activity: "我的活動紀錄"
@@ -2124,7 +2189,7 @@ zh-TW:
   label_new_statuses_allowed: "允許的新狀態"
   label_news_singular: "最新消息"
   label_news_added: "有最新消息"
-  label_news_comment_added: "最新消息新增留言"
+  label_news_comment_added: "「最新消息」有新留言"
   label_news_latest: "最新消息"
   label_news_new: "增加消息"
   label_news_edit: "編輯消息"
@@ -2613,7 +2678,7 @@ zh-TW:
   notice_email_sent: "一封郵件被傳送給 %{value}"
   notice_failed_to_save_work_packages: "%{total} 個選取的工作項目中的 %{count} 儲存失敗: %{ids}"
   notice_failed_to_save_members: "無法保存成員: %{errors}。"
-  notice_deletion_scheduled: "刪除已安排並且將異步執行。"
+  notice_deletion_scheduled: "已安排排程進行刪除。"
   notice_file_not_found: "您試圖存取的頁面不存在或已被移除。"
   notice_forced_logout: "由於超過 %{ttl_time} 分鐘沒有操作，您已被自動登出。"
   notice_internal_server_error: "你試圖前往的頁面發生一個錯誤。如果你一直遇到問題，請聯絡你的 %{app_title} 管理員以得到協助！"
@@ -2692,7 +2757,7 @@ zh-TW:
   permission_change_wiki_parent_page: "更改上層 Wiki 頁面"
   permission_change_work_package_status: "變更工作項目狀態"
   permission_change_work_package_status_explanation: "允許在不編輯工作包權限的情況下更改狀態"
-  permission_comment_news: "最新消息留言"
+  permission_comment_news: "在「最新消息」留言"
   permission_commit_access: "讀/寫 權限版本庫 (Commit)"
   permission_copy_projects: "複製專案"
   permission_copy_work_packages: "複製工作項目"
@@ -2792,7 +2857,7 @@ zh-TW:
       make_template: "設為範本"
       remove_from_templates: "從範本中移除"
     archive:
-      are_you_sure: "是否確定要 archive 專案 '%{name}'？"
+      are_you_sure: "是否確定要封存專案 '%{name}'？"
       archived: "封存"
     count:
       zero: "0 個專案"
@@ -3030,7 +3095,7 @@ zh-TW:
   setting_password_days_valid: "在經過多少天後強制執行密碼變更"
   setting_password_min_length: "最小長度"
   setting_password_min_adhered_rules: "必要類別的最小數目"
-  setting_per_page_options: "每頁顯示項目個數的設置"
+  setting_per_page_options: "設置每頁顯示個數"
   setting_plain_text_mail: "純文字郵件（不含 HTML）"
   setting_protocol: "Protocol"
   setting_project_gantt_query: "專案含甘特圖檢視"
@@ -3064,7 +3129,7 @@ zh-TW:
   setting_welcome_title: "歡迎區塊標題"
   setting_welcome_on_homescreen: "在主頁面上顯示歡迎區塊"
   setting_work_package_list_default_highlighting_mode: "預設顯示模式"
-  setting_work_package_list_default_highlighted_attributes: "預設強調的屬性"
+  setting_work_package_list_default_highlighted_attributes: "預設顯眼屬性"
   setting_working_days: "工作日"
   settings:
     attachments:
@@ -3240,7 +3305,7 @@ zh-TW:
   text_no_roles_defined: 沒有定義的角色
   text_no_access_tokens_configurable: "沒有存取權杖(Token)可以被設定"
   text_no_configuration_data: "角色，類型，工作項目狀態與工作流程都尚未設定。\n強烈建議先載入預設值，然後再修改它們。"
-  text_no_notes: "這個工作項目沒有評論"
+  text_no_notes: "這個工作項目沒有留言"
   text_notice_too_many_values_are_inperformant: "注意: 每頁顯示超過100個項目會增加頁面載入時間。"
   text_notice_security_badge_displayed_html: >
     注：如果啓用，這會在 <a href="%{information_panel_path}">%{information_panel_label}</a> 管理面板中和首頁上顯示一個包含您的安裝狀態的徽章。徽章僅向管理員顯示。<br/>徽章將根據官方的 OpenProject 版本數據庫檢查您當前的 OpenProject 版本，提醒您是否存在任何更新或已知漏洞。如需詳細瞭解檢查可以提供哪些信息，需要哪些數據來提供可用更新，以及如何禁用此檢查，請訪問<a href="%{more_info_url}">配置文檔</a>。

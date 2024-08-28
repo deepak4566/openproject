@@ -66,7 +66,7 @@ it:
     button_back_to_list_view: "Torna alla visualizzazione in lista"
     button_cancel: "Annulla"
     button_close: "Chiuso"
-    button_change_project: "Cambia progetto"
+    button_change_project: "Move to another project"
     button_check_all: "Seleziona tutti"
     button_configure-form: "Configura modulo"
     button_confirm: "Conferma"
@@ -74,7 +74,7 @@ it:
     button_copy: "Copia"
     button_copy_to_clipboard: "Copia negli appunti"
     button_copy_link_to_clipboard: "Copia link negli appunti"
-    button_copy_to_other_project: "Copia su altro progetto"
+    button_copy_to_other_project: "Duplicate to other project"
     button_custom-fields: "Campo personalizzato"
     button_delete: "Cancella"
     button_delete_watcher: "Elimina osservatore"
@@ -336,18 +336,6 @@ it:
         years: "Anni"
         description: >
           Seleziona il livello di zoom iniziale da mostrare quando lo zoom automatico non è disponibile.
-      export:
-        title: "Opzioni del diagramma di Gantt in PDF"
-        button_export: "Esporta"
-        column_widths:
-          narrow: "Stretto"
-          medium: "Medio"
-          wide: "Ampio"
-          very_wide: "Molto ampio"
-        options:
-          date_zoom: "Zoom data"
-          paper_size: "Dimensione del foglio"
-          column_widths: "Larghezza colonne"
     general_text_no: "no"
     general_text_yes: "si"
     general_text_No: "No"
@@ -648,7 +636,7 @@ it:
           with_current_filter: "Non ci sono notifiche in questa vista al momento"
         mark_all_read: "Segna tutti come letti"
         mark_as_read: "Segna come letto"
-        text_update_date: "%{date} da"
+        text_update_date_by: "%{date} by"
         total_count_warning: "Mostrando le %{newest_count} notifiche più recenti. %{more_count} altre non vengono visualizzate."
         empty_state:
           no_notification: "Sembra che siate tutti coinvolti."

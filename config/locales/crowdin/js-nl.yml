@@ -66,7 +66,7 @@ nl:
     button_back_to_list_view: "Terug naar het overzicht"
     button_cancel: "Annuleren"
     button_close: "Sluiten"
-    button_change_project: "Project wisselen"
+    button_change_project: "Move to another project"
     button_check_all: "Selecteer alles"
     button_configure-form: "Formulier configureren"
     button_confirm: "Accepteren"
@@ -74,7 +74,7 @@ nl:
     button_copy: "Kopieer"
     button_copy_to_clipboard: "Kopiëren naar het klembord"
     button_copy_link_to_clipboard: "Link naar klembord kopiëren"
-    button_copy_to_other_project: "Kopiëren naar een ander project"
+    button_copy_to_other_project: "Duplicate to other project"
     button_custom-fields: "Aangepaste velden"
     button_delete: "Verwijderen"
     button_delete_watcher: "Kijkers verwijderen"
@@ -336,18 +336,6 @@ nl:
         years: "Jaren"
         description: >
           Selecteer het oorspronkelijke zoomniveau dat moet worden weergegeven wanneer autozoom niet beschikbaar is.
-      export:
-        title: "Gantt chart PDF options"
-        button_export: "Export"
-        column_widths:
-          narrow: "Narrow"
-          medium: "Medium"
-          wide: "Wide"
-          very_wide: "Zeer breed"
-        options:
-          date_zoom: "Date zoom"
-          paper_size: "Papierformaat"
-          column_widths: "Kolombreedten"
     general_text_no: "Nee"
     general_text_yes: "Ja"
     general_text_No: "Nee"
@@ -648,7 +636,7 @@ nl:
           with_current_filter: "Er zijn geen meldingen in deze weergave op dit moment"
         mark_all_read: "Alles als gelezen markeren"
         mark_as_read: "Als gelezen markeren"
-        text_update_date: "%{date} door"
+        text_update_date_by: "%{date} by"
         total_count_warning: "De %{newest_count} meest recente meldingen weergeven. %{more_count} meer worden niet weergegeven."
         empty_state:
           no_notification: "Het lijkt erop dat u helemaal bij bent."

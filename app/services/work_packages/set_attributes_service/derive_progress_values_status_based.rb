@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -51,7 +51,15 @@ class WorkPackages::SetAttributesService
       return if remaining_work_came_from_user?
       return if work&.negative?
 
-      self.remaining_work = remaining_work_from_percent_complete_and_work
+      if work_empty?
+        return unless work_changed?
+
+        set_hint(:remaining_hours, :cleared_because_work_is_empty)
+        self.remaining_work = nil
+      else
+        set_hint(:remaining_hours, :derived)
+        self.remaining_work = remaining_work_from_percent_complete_and_work
+      end
     end
   end
 end
