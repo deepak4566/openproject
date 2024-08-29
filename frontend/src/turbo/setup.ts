@@ -4,14 +4,17 @@ import TurboPower from 'turbo_power';
 import { registerDialogStreamAction } from './dialog-stream-action';
 import { addTurboEventListeners } from './turbo-event-listeners';
 import { registerFlashStreamAction } from './flash-stream-action';
+import { addTurboGlobalListeners } from './turbo-global-listeners';
 
-// Disable default turbo-drive for now as we don't need it for now AND it breaks angular routing
-Turbo.session.drive = false;
+Turbo.session.drive = true;
+Turbo.setProgressBarDelay(100);
+
 // Start turbo
 Turbo.start();
 
 // Register our own actions
 addTurboEventListeners();
+addTurboGlobalListeners();
 registerDialogStreamAction();
 registerFlashStreamAction();
 
