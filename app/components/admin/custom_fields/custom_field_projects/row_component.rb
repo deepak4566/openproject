@@ -26,30 +26,18 @@
 # See COPYRIGHT and LICENSE files for more details.
 #++
 
-module Settings
-  module ProjectCustomFields
-    module ProjectCustomFieldMapping
-      class RowComponent < Admin::CustomFields::CustomFieldProjects::RowComponent
-        def more_menu_items
-          @more_menu_items ||= [more_menu_detach_project].compact
+module Admin
+  module CustomFields
+    module CustomFieldProjects
+      class RowComponent < Projects::RowComponent
+        include OpTurbo::Streamable
+
+        def wrapper_uniq_by
+          "project-#{project.id}"
         end
 
-        private
-
-        def more_menu_detach_project
-          project = model.first
-          if User.current.admin && project.active?
-            {
-              scheme: :default,
-              icon: nil,
-              label: I18n.t("projects.settings.project_custom_fields.actions.deactivate_for_project"),
-              href: unlink_admin_settings_project_custom_field_path(
-                id: @table.params[:custom_field].id,
-                project_custom_field_project_mapping: { project_id: project.id }
-              ),
-              data: { turbo_method: :delete }
-            }
-          end
+        def more_menu_items
+          []
         end
       end
     end
