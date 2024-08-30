@@ -52,6 +52,10 @@ apt-get install -yq --no-install-recommends \
 	libclang-dev \
 	git
 
+# Install jemalloc
+if [ "$USE_JEMALLOC" = "true" ]; then
+	apt-get install -yq libjemalloc2
+fi
 
 # Specifics for BIM edition
 if [ ! "$BIM_SUPPORT" = "false" ]; then
@@ -95,4 +99,3 @@ id $APP_USER || useradd -d /home/$APP_USER -m $APP_USER
 
 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 truncate -s 0 /var/log/*log
-
