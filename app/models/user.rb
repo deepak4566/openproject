@@ -398,7 +398,7 @@ class User < Principal
   end
 
   def log_successful_login
-    update_attribute(:last_login_on, Time.now)
+    update_attribute(:last_login_on, Time.current)
   end
 
   def pref
@@ -407,6 +407,12 @@ class User < Principal
 
   def time_zone
     @time_zone ||= (pref.time_zone.blank? ? nil : ActiveSupport::TimeZone[pref.time_zone])
+  end
+
+  def reload(*)
+    @time_zone = nil
+
+    super
   end
 
   def wants_comments_in_reverse_order?
@@ -688,6 +694,6 @@ class User < Principal
   end
 
   def self.default_admin_account_changed?
-    !User.active.find_by_login("admin").try(:current_password).try(:matches_plaintext?, "admin") # rubocop:disable Rails/DynamicFindBy
+    !User.active.find_by_login("admin").try(:current_password).try(:matches_plaintext?, "admin")
   end
 end
