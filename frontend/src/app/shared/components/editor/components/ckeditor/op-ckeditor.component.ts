@@ -257,7 +257,7 @@ export class OpCkeditorComponent extends UntilDestroyedMixin implements OnInit, 
         if ((data.ctrlKey || data.metaKey) && data.keyCode === KeyCodes.ENTER) {
           debugLog('Sending save request from CKEditor.');
           this.saveRequested.emit();
-          evt.stop();
+          // evt.stop();
         }
       },
       { priority: 'highest' },

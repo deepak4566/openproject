@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) the OpenProject GmbH
+# Copyright (C) 2012-2023 the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -26,21 +26,38 @@
 # See COPYRIGHT and LICENSE files for more details.
 #++
 
-require "spec_helper"
-require File.expand_path("../support/permission_specs", __dir__)
+module WorkPackages
+  module ActivitiesTab
+    module Journals
+      class NewComponent < ApplicationComponent
+        include ApplicationHelper
+        include OpPrimer::ComponentHelpers
+        include OpTurbo::Streamable
 
-RSpec.describe WorkPackagesController, "view_work_packages permission", type: :controller do
-  include PermissionSpecs
+        def initialize(work_package:, journal: nil, form_hidden_initially: true)
+          super
 
-  check_permission_required_for("work_packages#show", :view_work_packages)
-  check_permission_required_for("work_packages#index", :view_work_packages)
-end
+          @work_package = work_package
+          @journal = journal
+          @form_hidden_initially = form_hidden_initially
+        end
 
-RSpec.describe WorkPackages::ActivitiesTabController, "view_work_packages permission", type: :controller do
-  include PermissionSpecs
+        private
 
-  check_permission_required_for("work_packages/activities_tab#index", :view_work_packages)
-  check_permission_required_for("work_packages/activities_tab#update_streams", :view_work_packages)
-  check_permission_required_for("work_packages/activities_tab#update_sorting", :view_work_packages)
-  check_permission_required_for("work_packages/activities_tab#update_filter", :view_work_packages)
+        attr_reader :work_package, :form_hidden_initially
+
+        def journal
+          @journal || Journal.new(journable: work_package)
+        end
+
+        def button_row_display_value
+          form_hidden_initially ? :block : :none
+        end
+
+        def form_row_display_value
+          form_hidden_initially ? :none : :block
+        end
+      end
+    end
+  end
 end

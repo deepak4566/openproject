@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) the OpenProject GmbH
+# Copyright (C) 2012-2024 the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -25,22 +25,29 @@
 #
 # See COPYRIGHT and LICENSE files for more details.
 #++
+module WorkPackages::ActivitiesTab::Journals
+  class NotesForm < ApplicationForm
+    delegate :object, to: :@builder
 
-require "spec_helper"
-require File.expand_path("../support/permission_specs", __dir__)
+    form do |notes_form|
+      notes_form.rich_text_area(
+        name: :notes,
+        label: nil,
+        rich_text_options: {
+          showAttachments: false,
+          resource:,
+          editor_type: "constrained"
+        }
+      )
+    end
 
-RSpec.describe WorkPackagesController, "view_work_packages permission", type: :controller do
-  include PermissionSpecs
+    private
 
-  check_permission_required_for("work_packages#show", :view_work_packages)
-  check_permission_required_for("work_packages#index", :view_work_packages)
-end
+    def resource
+      return unless object
 
-RSpec.describe WorkPackages::ActivitiesTabController, "view_work_packages permission", type: :controller do
-  include PermissionSpecs
-
-  check_permission_required_for("work_packages/activities_tab#index", :view_work_packages)
-  check_permission_required_for("work_packages/activities_tab#update_streams", :view_work_packages)
-  check_permission_required_for("work_packages/activities_tab#update_sorting", :view_work_packages)
-  check_permission_required_for("work_packages/activities_tab#update_filter", :view_work_packages)
+      API::V3::WorkPackages::WorkPackageRepresenter
+        .create(object.journable, current_user: User.current, embed_links: false)
+    end
+  end
 end

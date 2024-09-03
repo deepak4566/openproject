@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) the OpenProject GmbH
+# Copyright (C) 2012-2023 the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -26,21 +26,30 @@
 # See COPYRIGHT and LICENSE files for more details.
 #++
 
-require "spec_helper"
-require File.expand_path("../support/permission_specs", __dir__)
+module WorkPackages
+  module ActivitiesTab
+    module Journals
+      class ItemComponent::Edit < ApplicationComponent
+        include ApplicationHelper
+        include OpPrimer::ComponentHelpers
+        include OpTurbo::Streamable
 
-RSpec.describe WorkPackagesController, "view_work_packages permission", type: :controller do
-  include PermissionSpecs
+        def initialize(journal:, filter:)
+          super
 
-  check_permission_required_for("work_packages#show", :view_work_packages)
-  check_permission_required_for("work_packages#index", :view_work_packages)
-end
+          @journal = journal
+          @work_package = journal.journable
+          @filter = filter
+        end
 
-RSpec.describe WorkPackages::ActivitiesTabController, "view_work_packages permission", type: :controller do
-  include PermissionSpecs
+        private
 
-  check_permission_required_for("work_packages/activities_tab#index", :view_work_packages)
-  check_permission_required_for("work_packages/activities_tab#update_streams", :view_work_packages)
-  check_permission_required_for("work_packages/activities_tab#update_sorting", :view_work_packages)
-  check_permission_required_for("work_packages/activities_tab#update_filter", :view_work_packages)
+        attr_reader :journal, :work_package, :filter
+
+        def wrapper_uniq_by
+          journal.id
+        end
+      end
+    end
+  end
 end

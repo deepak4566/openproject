@@ -32,6 +32,20 @@ en:
   activities:
     index:
       no_results_title_text: There has not been any activity for the project within this time frame.
+    work_packages:
+      activity_tab:
+        no_results_title_text: No activity to display
+        no_results_description_text: "Choose \"Show everything\" to show all activity and comments"
+        label_activity_show_all: "Show everything"
+        label_activity_show_only_comments: "Show comments only"
+        label_activity_show_only_changes: "Show changes only"
+        label_sort_asc: "Oldest on top"
+        label_sort_desc: "Newest on top"
+        label_type_to_comment: "Type here to comment"
+        label_submit_comment: "Submit comment"
+        changed_on: "made changes on"
+        created_on: "created this on"
+
 
   admin:
     plugins:

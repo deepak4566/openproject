@@ -29,18 +29,12 @@
 require "spec_helper"
 require File.expand_path("../support/permission_specs", __dir__)
 
-RSpec.describe WorkPackagesController, "view_work_packages permission", type: :controller do
+RSpec.describe Projects::Settings::ProjectCustomFieldsController, "select_project_custom_fields mappings permission",
+               type: :controller do
   include PermissionSpecs
 
-  check_permission_required_for("work_packages#show", :view_work_packages)
-  check_permission_required_for("work_packages#index", :view_work_packages)
-end
-
-RSpec.describe WorkPackages::ActivitiesTabController, "view_work_packages permission", type: :controller do
-  include PermissionSpecs
-
-  check_permission_required_for("work_packages/activities_tab#index", :view_work_packages)
-  check_permission_required_for("work_packages/activities_tab#update_streams", :view_work_packages)
-  check_permission_required_for("work_packages/activities_tab#update_sorting", :view_work_packages)
-  check_permission_required_for("work_packages/activities_tab#update_filter", :view_work_packages)
+  check_permission_required_for("projects/settings/project_custom_fields#show", :select_project_custom_fields)
+  check_permission_required_for("projects/settings/project_custom_fields#toggle", :select_project_custom_fields)
+  check_permission_required_for("projects/settings/project_custom_fields#enable_all_of_section", :select_project_custom_fields)
+  check_permission_required_for("projects/settings/project_custom_fields#disable_all_of_section", :select_project_custom_fields)
 end
